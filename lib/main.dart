@@ -73,15 +73,81 @@ class MyHomePage extends StatelessWidget {
             ],
           ),
         ),
-        body: const TabBarView(
+        body: TabBarView(
           children: <Widget>[
             Center(
-              child: Text("Chat Section"),
+              child: Column(
+                children: [
+                  Container(
+                    height: 80,
+                    color: Colors.white70,
+                    child: Row(
+                      children: [
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        const CircleAvatar(
+                          backgroundImage: NetworkImage(
+                            "https://picsum.photos/70/70",
+                          ),
+                          radius: 28,
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text(
+                                  "Google India",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 18),
+                                ),
+                                const SizedBox(
+                                  height: 8,
+                                ),
+                                Row(
+                                  children: const [
+                                    Icon(
+                                      Icons.check,
+                                      size: 15,
+                                      color: Colors.black26,
+                                    ),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    Text(
+                                      "Hi! everyone, Hope you are doing well.",
+                                      style: TextStyle(
+                                        color: Colors.black45,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: 1,
+                    color: Colors.black12,
+                  ),
+                ],
+              ),
             ),
-            Center(
+            const Center(
               child: Text("Status Section"),
             ),
-            Center(
+            const Center(
               child: Text("Calls Section"),
             ),
           ],
