@@ -71,11 +71,11 @@ class MyHomePage extends StatelessWidget {
                       Row(
                         children: const [
                           Text(
-                            "Google India",
+                            "Sundar Pichai",
                             style: TextStyle(
                                 fontWeight: FontWeight.w500, fontSize: 18),
                           ),
-                          Text("14/09/2021"),
+                          Text("Yesterday"),
                         ],
                       ),
                       const SizedBox(
@@ -92,7 +92,7 @@ class MyHomePage extends StatelessWidget {
                             width: 10,
                           ),
                           Text(
-                            "Hi! everyone, Hope you are doing well................",
+                            "Sorry, I can't talk now, I'm making WahtsApp",
                             style: TextStyle(
                               color: Colors.black45,
                             ),
@@ -161,8 +161,73 @@ class MyHomePage extends StatelessWidget {
             const Center(
               child: Text("Status Section"),
             ),
-            const Center(
-              child: Text("Calls Section"),
+            Column(
+              children: [
+                Container(
+                  height: 80,
+                  color: Colors.white70,
+                  child: Row(
+                    children: [
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      const CircleAvatar(
+                        backgroundImage: NetworkImage(
+                          "https://picsum.photos/70/70",
+                        ),
+                        radius: 28,
+                      ),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                "Sundar Pichai",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w500, fontSize: 18),
+                              ),
+                              const SizedBox(
+                                height: 8,
+                              ),
+                              Row(
+                                children: [
+                                  Icon(
+                                    Icons.call_received_sharp,
+                                    color: Colors.red.shade700,
+                                    size: 15,
+                                  ),
+                                  const SizedBox(
+                                    width: 10,
+                                  ),
+                                  const Text(
+                                    "(4) Today, 12:43 am",
+                                    style: TextStyle(
+                                      color: Colors.black45,
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ],
+                          ),
+                          const Icon(Icons.call),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 1,
+                  color: Colors.black12,
+                ),
+              ],
             ),
           ],
         ),
