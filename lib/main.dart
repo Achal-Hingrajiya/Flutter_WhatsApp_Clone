@@ -278,7 +278,7 @@ class _MyHomePageState extends State<MyHomePage>
                     borderRadius: BorderRadius.circular(30),
                     border: Border.all(
                       width: 2.0,
-                      color: MyApp.lightGreen.shade500,
+                      color: MyApp.lightGreen.shade300,
                     ),
                   ),
                   child: Container(
@@ -332,15 +332,92 @@ class _MyHomePageState extends State<MyHomePage>
     );
   }
 
-  static const List<Tab> myTabs = <Tab>[
+  static List<Tab> myTabs = <Tab>[
     Tab(
-      text: "CHATS",
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          const Text(
+            "CHATS",
+            style: TextStyle(
+              fontSize: 15,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          Container(
+            width: 20,
+            height: 20,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: const Center(
+              child: Text(
+                "48",
+                style: TextStyle(
+                  fontSize: 10,
+                  fontWeight: FontWeight.w700,
+                  color: MyApp.greenWA,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
     ),
     Tab(
-      text: "STATUS",
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          const Text(
+            "STATUS",
+            style: TextStyle(
+              fontSize: 15,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          Container(
+            width: 7,
+            height: 7,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(3.5),
+            ),
+          ),
+        ],
+      ),
     ),
     Tab(
-      text: "CALLS",
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          const Text(
+            "CALLS",
+            style: TextStyle(
+              fontSize: 15,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          Container(
+            width: 20,
+            height: 20,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: const Center(
+              child: Text(
+                "8",
+                style: TextStyle(
+                  fontSize: 10,
+                  fontWeight: FontWeight.w700,
+                  color: MyApp.greenWA,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
     ),
   ];
 
