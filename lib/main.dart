@@ -198,7 +198,7 @@ class _MyHomePageState extends State<MyHomePage>
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
-                    "Sundar Pichai",
+                    "Mark Zuckerberg",
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 18,
@@ -259,6 +259,79 @@ class _MyHomePageState extends State<MyHomePage>
     return List<Widget>.generate(20, (index) => _buildCallLogWidget(context));
   }
 
+  Widget _buildStatusWidget(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: [
+        Container(
+          height: 80,
+          color: Colors.white70,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: Container(
+                  width: 58,
+                  height: 58,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30),
+                    border: Border.all(
+                      width: 2.0,
+                      color: MyApp.lightGreen.shade500,
+                    ),
+                  ),
+                  child: Container(
+                    width: 56,
+                    height: 56,
+                    margin: const EdgeInsets.all(2),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(28),
+                      image: const DecorationImage(
+                        image: NetworkImage("https://picsum.photos/70/70"),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: const [
+                  Text(
+                    "Elon Musk",
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 18,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 8,
+                  ),
+                  Text(
+                    "45 minutes ago",
+                    style: TextStyle(
+                      color: Colors.black45,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(right: 15.0),
+          child: Container(
+            height: 0.7,
+            width: MediaQuery.of(context).size.width - 101,
+            color: Colors.black12,
+          ),
+        ),
+      ],
+    );
+  }
+
   static const List<Tab> myTabs = <Tab>[
     Tab(
       text: "CHATS",
@@ -316,16 +389,16 @@ class _MyHomePageState extends State<MyHomePage>
       ),
       body: TabBarView(
         controller: _tabController,
-        children: <Widget>[
+        children: [
           SingleChildScrollView(
             child: Column(
-              children: [
-                _buildChatWidget(context),
-              ],
+              children: _generateRandomChats(context),
             ),
           ),
-          const Center(
-            child: Text("Status Section"),
+          SingleChildScrollView(
+            child: Column(
+              children: [_buildStatusWidget(context)],
+            ),
           ),
           SingleChildScrollView(
             child: Column(
