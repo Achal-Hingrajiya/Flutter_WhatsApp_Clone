@@ -268,7 +268,7 @@ class _MyHomePageState extends State<MyHomePage>
   Random random = Random();
 
   double radius = 28.0;
-  double width = 28.0 * 3.14 * 2.0;
+  double perimeter = 28.0 * 3.14 * 2.0;
 
   Widget _buildStatusWidget(BuildContext context) {
     return Column(
@@ -283,8 +283,9 @@ class _MyHomePageState extends State<MyHomePage>
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: DottedBorder(
-                  dashPattern: [(width / (random.nextInt(20) + 1)) - 5, 5],
-                  // generate random segments between 1 to 20
+                  dashPattern: [(perimeter / (random.nextInt(20) + 2)) - 5, 5],
+                  // generate random segments between 2 to 20
+                  // length of dash = (perimeter - 5 * no_of_segments)/ perimeter
                   strokeWidth: 2,
                   color: MyApp.lightGreen.shade300,
                   strokeCap: StrokeCap.round,
@@ -339,6 +340,10 @@ class _MyHomePageState extends State<MyHomePage>
         ),
       ],
     );
+  }
+
+  List<Widget> _generateRandomStatus(BuildContext context) {
+    return List<Widget>.generate(20, (index) => _buildStatusWidget(context));
   }
 
   static List<Tab> myTabs = <Tab>[
@@ -483,7 +488,7 @@ class _MyHomePageState extends State<MyHomePage>
           ),
           SingleChildScrollView(
             child: Column(
-              children: [_buildStatusWidget(context)],
+              children: _generateRandomStatus(context),
             ),
           ),
           SingleChildScrollView(
