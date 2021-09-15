@@ -43,6 +43,7 @@ class MyHomePage extends StatelessWidget {
 
   Widget _buildChatWidget(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         Container(
           height: 80,
@@ -50,66 +51,80 @@ class MyHomePage extends StatelessWidget {
           color: Colors.white70,
           child: Row(
             children: [
-              const SizedBox(
-                width: 10,
-              ),
-              const CircleAvatar(
-                backgroundImage: NetworkImage(
-                  "https://picsum.photos/70/70",
-                ),
-                radius: 28,
-              ),
-              const SizedBox(
-                width: 10,
-              ),
-              Row(
-                children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: const [
-                          Text(
-                            "Sundar Pichai",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500, fontSize: 18),
-                          ),
-                          Text("Yesterday"),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 8,
-                      ),
-                      Row(
-                        children: const [
-                          Icon(
-                            Icons.check,
-                            size: 15,
-                            color: Colors.black26,
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Text(
-                            "Sorry, I can't talk now, I'm making WahtsApp",
-                            style: TextStyle(
-                              color: Colors.black45,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                child: CircleAvatar(
+                  backgroundImage: NetworkImage(
+                    "https://picsum.photos/70/70",
                   ),
-                ],
+                  radius: 28,
+                ),
+              ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width - 76,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const Text(
+                          "Sundar Pichai",
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 18,
+                          ),
+                        ),
+                        Expanded(child: Container()),
+                        const Text(
+                          "Yesterday",
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.black45,
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 15,
+                        )
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    Row(
+                      children: const [
+                        Icon(
+                          Icons.check,
+                          size: 15,
+                          color: Colors.black26,
+                        ),
+                        SizedBox(
+                          width: 9,
+                        ),
+                        Text(
+                          "Sorry, I can't talk right now.",
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.black45,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
         ),
-        Container(
-          width: MediaQuery.of(context).size.width,
-          height: 1,
-          color: Colors.black12,
+        Padding(
+          padding: const EdgeInsets.only(right: 15.0),
+          child: Container(
+            height: 0.7,
+            width: MediaQuery.of(context).size.width - 91,
+            color: Colors.black12,
+          ),
         ),
       ],
     );
@@ -117,6 +132,91 @@ class MyHomePage extends StatelessWidget {
 
   List<Widget> _generateRandomChats(BuildContext context) {
     return List<Widget>.generate(50, (index) => _buildChatWidget(context));
+  }
+
+  Widget _buildCallLogWidget(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: [
+        Container(
+          height: 80,
+          color: Colors.white70,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 15),
+                child: CircleAvatar(
+                  radius: 28,
+                  backgroundImage: NetworkImage(
+                    "https://picsum.photos/60/60",
+                  ),
+                ),
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    "Sundar Pichai",
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 18,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.call_received_sharp,
+                        color: Colors.red.shade700,
+                        size: 15,
+                      ),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      const Text(
+                        "(4) Today, 12:43 am",
+                        style: TextStyle(
+                          color: Colors.black45,
+                        ),
+                      )
+                    ],
+                  ),
+                ],
+              ),
+              Expanded(
+                child: Container(),
+              ),
+              IconButton(
+                onPressed: () {},
+                icon: Icon(
+                  Icons.call,
+                  color: MyApp.greenWA[300],
+                ),
+              ),
+              const SizedBox(
+                width: 5,
+              )
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(right: 15.0),
+          child: Container(
+            height: 0.7,
+            width: MediaQuery.of(context).size.width - 101,
+            color: Colors.black12,
+          ),
+        ),
+      ],
+    );
+  }
+
+  List<Widget> _generateRandomCallLogs(BuildContext context) {
+    return List<Widget>.generate(50, (index) => _buildCallLogWidget(context));
   }
 
   @override
@@ -161,73 +261,10 @@ class MyHomePage extends StatelessWidget {
             const Center(
               child: Text("Status Section"),
             ),
-            Column(
-              children: [
-                Container(
-                  height: 80,
-                  color: Colors.white70,
-                  child: Row(
-                    children: [
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      const CircleAvatar(
-                        backgroundImage: NetworkImage(
-                          "https://picsum.photos/70/70",
-                        ),
-                        radius: 28,
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Text(
-                                "Sundar Pichai",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w500, fontSize: 18),
-                              ),
-                              const SizedBox(
-                                height: 8,
-                              ),
-                              Row(
-                                children: [
-                                  Icon(
-                                    Icons.call_received_sharp,
-                                    color: Colors.red.shade700,
-                                    size: 15,
-                                  ),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  const Text(
-                                    "(4) Today, 12:43 am",
-                                    style: TextStyle(
-                                      color: Colors.black45,
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ],
-                          ),
-                          const Icon(Icons.call),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: 1,
-                  color: Colors.black12,
-                ),
-              ],
+            SingleChildScrollView(
+              child: Column(
+                children: _generateRandomCallLogs(context),
+              ),
             ),
           ],
         ),
