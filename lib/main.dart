@@ -1,4 +1,7 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:dotted_border/dotted_border.dart';
 
 void main() {
   runApp(const MyApp());
@@ -259,6 +262,14 @@ class _MyHomePageState extends State<MyHomePage>
     return List<Widget>.generate(20, (index) => _buildCallLogWidget(context));
   }
 
+  // perimeter of circle = 2*pi*R
+  // R = 28
+
+  Random random = Random();
+
+  double radius = 28.0;
+  double width = 28.0 * 3.14 * 2.0;
+
   Widget _buildStatusWidget(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.end,
@@ -271,22 +282,20 @@ class _MyHomePageState extends State<MyHomePage>
             children: [
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15),
-                child: Container(
-                  width: 58,
-                  height: 58,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30),
-                    border: Border.all(
-                      width: 2.0,
-                      color: MyApp.lightGreen.shade300,
-                    ),
-                  ),
+                child: DottedBorder(
+                  dashPattern: [(width / (random.nextInt(20) + 1)) - 5, 5],
+                  // generate random segments between 1 to 20
+                  strokeWidth: 2,
+                  color: MyApp.lightGreen.shade300,
+                  strokeCap: StrokeCap.round,
+                  borderType: BorderType.Circle,
+                  radius: Radius.circular(radius),
                   child: Container(
                     width: 56,
                     height: 56,
                     margin: const EdgeInsets.all(2),
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(28),
+                      borderRadius: BorderRadius.circular(radius),
                       image: const DecorationImage(
                         image: NetworkImage("https://picsum.photos/70/70"),
                         fit: BoxFit.cover,
@@ -348,7 +357,7 @@ class _MyHomePageState extends State<MyHomePage>
             width: 20,
             height: 20,
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: MyApp.greenWA.shade200,
               borderRadius: BorderRadius.circular(10),
             ),
             child: const Center(
