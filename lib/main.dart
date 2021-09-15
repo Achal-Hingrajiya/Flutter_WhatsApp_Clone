@@ -81,13 +81,18 @@ class _MyHomePageState extends State<MyHomePage>
           color: Colors.white70,
           child: Row(
             children: [
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10),
-                child: CircleAvatar(
-                  backgroundImage: NetworkImage(
-                    "https://picsum.photos/70/70",
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Container(
+                  width: 56,
+                  height: 56,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(28),
+                    image: const DecorationImage(
+                      image: NetworkImage("https://picsum.photos/60/60"),
+                      fit: BoxFit.cover,
+                    ),
                   ),
-                  radius: 28,
                 ),
               ),
               SizedBox(
@@ -161,7 +166,7 @@ class _MyHomePageState extends State<MyHomePage>
   }
 
   List<Widget> _generateRandomChats(BuildContext context) {
-    return List<Widget>.generate(50, (index) => _buildChatWidget(context));
+    return List<Widget>.generate(20, (index) => _buildChatWidget(context));
   }
 
   Widget _buildCallLogWidget(BuildContext context) {
@@ -174,12 +179,17 @@ class _MyHomePageState extends State<MyHomePage>
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15),
-                child: CircleAvatar(
-                  radius: 28,
-                  backgroundImage: NetworkImage(
-                    "https://picsum.photos/60/60",
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: Container(
+                  width: 56,
+                  height: 56,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(28),
+                    image: const DecorationImage(
+                      image: NetworkImage("https://picsum.photos/70/70"),
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
               ),
@@ -246,7 +256,7 @@ class _MyHomePageState extends State<MyHomePage>
   }
 
   List<Widget> _generateRandomCallLogs(BuildContext context) {
-    return List<Widget>.generate(50, (index) => _buildCallLogWidget(context));
+    return List<Widget>.generate(20, (index) => _buildCallLogWidget(context));
   }
 
   static const List<Tab> myTabs = <Tab>[
@@ -264,7 +274,6 @@ class _MyHomePageState extends State<MyHomePage>
   late TabController _tabController;
   int _selectedIndex = 0;
 
-  IconData _fabIcon = Icons.chat;
   @override
   void initState() {
     super.initState();
@@ -273,13 +282,6 @@ class _MyHomePageState extends State<MyHomePage>
     _tabController.addListener(() {
       setState(() {
         _selectedIndex = _tabController.index;
-        if (_selectedIndex == 0) {
-          _fabIcon = Icons.chat;
-        } else if (_selectedIndex == 1) {
-          _fabIcon = Icons.camera_alt_rounded;
-        } else {
-          _fabIcon = Icons.add_call;
-        }
       });
       // // ignore: avoid_print
       // print("Selected Index: " + _tabController.index.toString());
@@ -317,7 +319,9 @@ class _MyHomePageState extends State<MyHomePage>
         children: <Widget>[
           SingleChildScrollView(
             child: Column(
-              children: _generateRandomChats(context),
+              children: [
+                _buildChatWidget(context),
+              ],
             ),
           ),
           const Center(
@@ -333,7 +337,11 @@ class _MyHomePageState extends State<MyHomePage>
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
         backgroundColor: MyApp.lightGreen.shade500,
-        child: Icon(_fabIcon),
+        child: (_selectedIndex == 0)
+            ? const Icon(Icons.chat)
+            : (_selectedIndex == 1)
+                ? const Icon(Icons.camera_alt_rounded)
+                : const Icon(Icons.add_ic_call_rounded),
       ),
     );
   }
