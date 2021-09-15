@@ -24,6 +24,30 @@ class MyApp extends StatelessWidget {
     },
   );
 
+  static const MaterialColor lightGreen =
+      MaterialColor(_lightGreenPrimaryValue, <int, Color>{
+    50: Color(0xFFE5FAED),
+    100: Color(0xFFBEF2D1),
+    200: Color(0xFF92E9B3),
+    300: Color(0xFF66E094),
+    400: Color(0xFF46DA7D),
+    500: Color(_lightGreenPrimaryValue),
+    600: Color(0xFF21CE5E),
+    700: Color(0xFF1BC853),
+    800: Color(0xFF16C249),
+    900: Color(0xFF0DB738),
+  });
+  static const int _lightGreenPrimaryValue = 0xFF25D366;
+
+  static const MaterialColor lightGreenAccent =
+      MaterialColor(_lightGreenAccentValue, <int, Color>{
+    100: Color(0xFFE5FFEA),
+    200: Color(_lightGreenAccentValue),
+    400: Color(0xFF7FFF99),
+    700: Color(0xFF65FF85),
+  });
+  static const int _lightGreenAccentValue = 0xFFB2FFC2;
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -38,9 +62,15 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
 
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage>
+    with SingleTickerProviderStateMixin {
   Widget _buildChatWidget(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.end,
@@ -219,55 +249,91 @@ class MyHomePage extends StatelessWidget {
     return List<Widget>.generate(50, (index) => _buildCallLogWidget(context));
   }
 
+  static const List<Tab> myTabs = <Tab>[
+    Tab(
+      text: "CHATS",
+    ),
+    Tab(
+      text: "STATUS",
+    ),
+    Tab(
+      text: "CALLS",
+    ),
+  ];
+
+  late TabController _tabController;
+  int _selectedIndex = 0;
+
+  IconData _fabIcon = Icons.chat;
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(vsync: this, length: myTabs.length);
+
+    _tabController.addListener(() {
+      setState(() {
+        _selectedIndex = _tabController.index;
+        if (_selectedIndex == 0) {
+          _fabIcon = Icons.chat;
+        } else if (_selectedIndex == 1) {
+          _fabIcon = Icons.camera_alt_rounded;
+        } else {
+          _fabIcon = Icons.add_call;
+        }
+      });
+      // // ignore: avoid_print
+      // print("Selected Index: " + _tabController.index.toString());
+    });
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      initialIndex: 1,
-      length: 3,
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text('WhatsApp'),
-          actions: const [
-            Padding(
-              padding: EdgeInsets.only(left: 10, right: 10),
-              child: Icon(Icons.search_rounded),
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 10, right: 10),
-              child: Icon(Icons.more_vert_rounded),
-            ),
-          ],
-          bottom: const TabBar(
-            tabs: <Widget>[
-              Tab(
-                text: "CHATS",
-              ),
-              Tab(
-                text: "STATUS",
-              ),
-              Tab(
-                text: "CALLS",
-              ),
-            ],
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('WhatsApp'),
+        actions: const [
+          Padding(
+            padding: EdgeInsets.only(left: 10, right: 10),
+            child: Icon(Icons.search_rounded),
           ),
+          Padding(
+            padding: EdgeInsets.only(left: 10, right: 10),
+            child: Icon(Icons.more_vert_rounded),
+          ),
+        ],
+        bottom: TabBar(
+          controller: _tabController,
+          tabs: myTabs,
         ),
-        body: TabBarView(
-          children: <Widget>[
-            SingleChildScrollView(
-              child: Column(
-                children: _generateRandomChats(context),
-              ),
+      ),
+      body: TabBarView(
+        controller: _tabController,
+        children: <Widget>[
+          SingleChildScrollView(
+            child: Column(
+              children: _generateRandomChats(context),
             ),
-            const Center(
-              child: Text("Status Section"),
+          ),
+          const Center(
+            child: Text("Status Section"),
+          ),
+          SingleChildScrollView(
+            child: Column(
+              children: _generateRandomCallLogs(context),
             ),
-            SingleChildScrollView(
-              child: Column(
-                children: _generateRandomCallLogs(context),
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        backgroundColor: MyApp.lightGreen.shade500,
+        child: Icon(_fabIcon),
       ),
     );
   }
